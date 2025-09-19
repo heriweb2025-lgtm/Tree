@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Places Sphere</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle, #0f2027, #203a43, #2c5364);
+      font-family: 'Segoe UI', sans-serif;
+      color: #fff;
+    }
+
+    .container {
+      display: flex;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .content {
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .tagcloud--item:hover {
+      color: #ffd639;
+    }
+
+    .list {
+      max-height: 80vh;
+      overflow-y: auto;
+      padding: 15px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+
+    .list h2 {
+      margin: 0 0 10px;
+      font-size: 22px;
+      text-align: center;
+      color: #ffd639;
+    }
+
+    .list ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .list ul li {
+      padding: 6px 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      transition: background 0.3s;
+      cursor: pointer;
+    }
+
+    .list ul li:hover {
+      background: rgba(255,214,57,0.2);
+      color: #ffd639;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Left: 3D Sphere -->
+    <span class="content"></span>
+
+    <!-- Right: List of names -->
+    <div class="list">
+      <h2>Solapur Places</h2>
+      <ul id="placesList"></ul>
+    </div>
+  </div>
+
+  <!-- TagCloud.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/TagCloud@2.2.0/dist/TagCloud.min.js"></script>
+
+  <script>
+    // Full list of tourist places in Solapur
+    const myTags = [
+      'Bhuikot Fort',
+      'Siddheshwar Temple',
+      'Great Indian Bustard Sanctuary',
+      'Nannaj',
+      'Pandharpur (Vithoba Temple)',
+      'Akkalkot Swami Samarth Maharaj Temple',
+      'Mangalwedha (Jajnavari)',
+      'Karmala Fort',
+      'Tuljapur (Tulja Bhavani Temple)',
+      'Shideshwar Lake',
+      'Moti Baug',
+      'Siddheshwar Lake',
+      'Hipparga Lake',
+      'Khidrapur Temple',
+      'Solapur Science Centre',
+      'Hattarsang Kudal',
+      'Sangola',
+      'Barshi (Bhavani Temple)',
+      'Mangalwedha Musical Heritage',
+      'Dharashiv Caves (Osmanabad nearby)',
+      'Ekrukha Lake',
+      'Machnur Temple',
+      'Kurduvadi',
+      'Vijapur (nearby historical place)',
+      'Karmala',
+      'Mohol',
+      'Madha',
+      'Shrigonda nearby'
+    ];
+
+    // Render the sphere
+    TagCloud('.content', myTags, {
+      radius: 250,
+      maxSpeed: 'fast',
+      initSpeed: 'fast',
+      direction: 95,
+      keep: true
+    });
+
+    // Random color each load
+    const colors = ['#34A853', '#FBBC05', '#4285F4', '#7FBC00', '#FFBA01', '#01A6F0'];
+    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+    document.querySelector('.content').style.color = randomColor;
+
+    // Fill the side list dynamically
+    const ul = document.getElementById("placesList");
+    myTags.forEach(place => {
+      const li = document.createElement("li");
+      li.textContent = place;
+      ul.appendChild(li);
+    });
+  </script>
+</body>
+</html>
